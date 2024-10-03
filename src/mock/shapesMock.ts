@@ -1,0 +1,48 @@
+export const shapesMock = {
+    rectangle: {
+        type: 'rectangle',
+        label: 'Прямоугольник',
+        width: 100,
+        height: 50,
+        fillLinearGradientStartPoint: { x: 0, y: 0 },
+        fillLinearGradientEndPoint: { x: 100, y: 50 },
+        fillLinearGradientColorStops: {
+            startOffset: 0,
+            startColor: '#fcb9b2',
+            endOffset: 1,
+            endColor: '#ffddc1',
+        },
+        shadowBlur: 10,
+        shadowColor: '#cfcfcf',
+    },
+    circle: {
+        type: 'circle',
+        label: 'Круг',
+        radius: 50,
+        fillLinearGradientStartPoint: { x: 0, y: 0 },
+        fillLinearGradientEndPoint: { x: 50, y: 50 },
+        fillLinearGradientColorStops: {
+            startOffset: 0,
+            startColor: '#a7e9af',
+            endOffset: 1,
+            endColor: '#f3eac2',
+        },
+        shadowBlur: 10,
+        shadowColor: '#cfcfcf',
+    },
+    triangle: {
+        type: 'triangle',
+        label: 'Треугольник',
+        points: [0, 0, 50, 100, -50, 100],
+        fillLinearGradientStartPoint: { x: 0, y: 0 },
+        fillLinearGradientEndPoint: { x: 50, y: 100 },
+        fillLinearGradientColorStops: {
+            startOffset: 0,
+            startColor: '#c9afff',
+            endOffset: 1,
+            endColor: '#d3f8e2',
+        },
+        shadowBlur: 10,
+        shadowColor: '#cfcfcf',
+    },
+}

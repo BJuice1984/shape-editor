@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { Stage, Layer, Rect, Circle, Line } from 'react-konva'
 import { KonvaEventObject } from 'konva/lib/Node'
+import shapesStore from '../mock/shapesStore'
 
 interface CanvasProps {
     tool: 'select' | 'shape'
-    selectedShape: 'rectangle' | 'circle' | 'triangle' | null
+    selectedShape: keyof typeof shapesStore | null
 }
 
 const CanvasWindow = ({ tool, selectedShape }: CanvasProps) => {
@@ -17,27 +18,66 @@ const CanvasWindow = ({ tool, selectedShape }: CanvasProps) => {
             if (!pos) return
 
             let newShape
-            switch (selectedShape) {
+            const shapeData = shapesStore[selectedShape]
+
+            switch (shapeData.type) {
                 case 'rectangle':
                     newShape = {
-                        type: 'rect',
+                        type: 'rectangle',
                         x: pos.x,
                         y: pos.y,
-                        width: 100,
-                        height: 50,
-                        fill: 'red',
+                        width: shapeData.width,
+                        height: shapeData.height,
+                        fillLinearGradientStartPoint: shapeData.fillLinearGradientStartPoint,
+                        fillLinearGradientEndPoint: shapeData.fillLinearGradientEndPoint,
+                        fillLinearGradientColorStops: [
+                            shapeData.fillLinearGradientColorStops.startOffset,
+                            shapeData.fillLinearGradientColorStops.startColor,
+                            shapeData.fillLinearGradientColorStops.endOffset,
+                            shapeData.fillLinearGradientColorStops.endColor,
+                        ],
+                        shadowBlur: shapeData.shadowBlur,
+                        shadowColor: shapeData.shadowColor,
                     }
                     break
                 case 'circle':
-                    newShape = { type: 'circle', x: pos.x, y: pos.y, radius: 50, fill: 'blue' }
+                    newShape = {
+                        type: 'circle',
+                        x: pos.x,
+                        y: pos.y,
+                        radius: shapeData.radius,
+                        fillLinearGradientStartPoint: shapeData.fillLinearGradientStartPoint,
+                        fillLinearGradientEndPoint: shapeData.fillLinearGradientEndPoint,
+                        fillLinearGradientColorStops: [
+                            shapeData.fillLinearGradientColorStops.startOffset,
+                            shapeData.fillLinearGradientColorStops.startColor,
+                            shapeData.fillLinearGradientColorStops.endOffset,
+                            shapeData.fillLinearGradientColorStops.endColor,
+                        ],
+                        shadowBlur: shapeData.shadowBlur,
+                        shadowColor: shapeData.shadowColor,
+                    }
                     break
                 case 'triangle':
                     newShape = {
-                        type: 'line',
-                        points: [pos.x, pos.y, pos.x + 50, pos.y + 100, pos.x - 50, pos.y + 100],
-                        fill: 'green',
+                        type: 'triangle',
+                        x: pos.x,
+                        y: pos.y,
+                        points: shapeData.points,
+                        fillLinearGradientStartPoint: shapeData.fillLinearGradientStartPoint,
+                        fillLinearGradientEndPoint: shapeData.fillLinearGradientEndPoint,
+                        fillLinearGradientColorStops: [
+                            shapeData.fillLinearGradientColorStops.startOffset,
+                            shapeData.fillLinearGradientColorStops.startColor,
+                            shapeData.fillLinearGradientColorStops.endOffset,
+                            shapeData.fillLinearGradientColorStops.endColor,
+                        ],
+                        shadowBlur: shapeData.shadowBlur,
+                        shadowColor: shapeData.shadowColor,
                     }
                     break
+                default:
+                    return
             }
             setShapes([...shapes, newShape])
         }
@@ -54,16 +94,16 @@ const CanvasWindow = ({ tool, selectedShape }: CanvasProps) => {
             onMouseDown={handleMouseDown}
             draggable
             onDragMove={handleDragMove}
-            style={{ background: '#f0f0f0', cursor: isDragging ? 'grab' : 'default' }}
+            className={`${isDragging ? 'cursor-grab' : 'cursor-default'}`}
         >
             <Layer>
                 {shapes.map((shape, index) => {
                     switch (shape.type) {
-                        case 'rect':
+                        case 'rectangle':
                             return <Rect key={index} {...shape} draggable />
                         case 'circle':
                             return <Circle key={index} {...shape} draggable />
-                        case 'line':
+                        case 'triangle':
                             return <Line key={index} {...shape} closed draggable />
                         default:
                             return null

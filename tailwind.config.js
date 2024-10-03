@@ -4,7 +4,7 @@ module.exports = {
         extend: {
             colors: {
                 'background-main': '#F8F9FA',
-                'background-secondary': '#F0F3F7',
+                'background-secondary': '#E0E5EB',
                 'text-main': '#1F2939',
                 'scrollbar-thumb': '#FFFFFF',
                 'scrollbar-track': '#E0E5EB',

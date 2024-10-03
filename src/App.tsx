@@ -5,7 +5,7 @@ import CanvasWindow from './components/CanvasWindow'
 const App = () => {
     const [tool, setTool] = useState<'select' | 'shape'>('select')
     const [selectedShape, setSelectedShape] = useState<'rectangle' | 'circle' | 'triangle' | null>(
-        null
+        'rectangle'
     )
 
     return (

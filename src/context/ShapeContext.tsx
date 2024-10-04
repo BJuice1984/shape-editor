@@ -6,6 +6,7 @@ export type ShapesFctory = {
     x: number
     y: number
     type: ShapeType
+    id: string
 }
 
 interface ShapeContextType {
@@ -15,6 +16,7 @@ interface ShapeContextType {
     setTool: (tool: Tool) => void
     shapes: ShapesFctory[]
     setShapes: (shapes: ShapesFctory[]) => void
+    updateShapePosition: (id: string, x: number, y: number) => void
 }
 
 const ShapeContext = createContext<ShapeContextType | null>(null)
@@ -22,11 +24,25 @@ const ShapeContext = createContext<ShapeContextType | null>(null)
 export const ShapeProvider = ({ children }: { children: ReactNode }) => {
     const [tool, setTool] = useState<Tool>('select')
     const [selectedShape, setSelectedShape] = useState<ShapeType | null>('rectangle')
-    const [shapes, setShapes] = useState<any[]>([])
+    const [shapes, setShapes] = useState<ShapesFctory[]>([])
+
+    const updateShapePosition = (id: string, x: number, y: number) => {
+        setShapes(prevShapes =>
+            prevShapes.map(shape => (shape.id === id ? { ...shape, x, y } : shape))
+        )
+    }
 
     return (
         <ShapeContext.Provider
-            value={{ selectedShape, setSelectedShape, tool, setTool, shapes, setShapes }}
+            value={{
+                selectedShape,
+                setSelectedShape,
+                tool,
+                setTool,
+                shapes,
+                setShapes,
+                updateShapePosition,
+            }}
         >
             {children}
         </ShapeContext.Provider>

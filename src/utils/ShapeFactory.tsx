@@ -1,19 +1,29 @@
 import shapesStore, { ShapeType } from '../store/shapesStore'
 import { Rect, Circle, Line } from 'react-konva'
+import { KonvaEventObject } from 'konva/lib/Node'
+import { useShapeContext } from '../context/ShapeContext'
 
 interface ShapeFactoryProps {
     shape: {
         x: number
         y: number
         type: ShapeType
+        id: string
     }
 }
 
 const ShapeFactory = ({ shape }: ShapeFactoryProps) => {
+    const { updateShapePosition } = useShapeContext()
+    const handleDragMove = (e: KonvaEventObject<DragEvent>) => {
+        const { x, y } = e.target.position()
+        updateShapePosition(shape.id, x, y)
+    }
+
     let newShape
     switch (shape.type) {
         case 'rectangle':
             newShape = {
+                id: shape.id,
                 type: shape.type,
                 x: shape.x,
                 y: shape.y,
@@ -30,10 +40,12 @@ const ShapeFactory = ({ shape }: ShapeFactoryProps) => {
                 shadowBlur: shapesStore.rectangle.shadowBlur,
                 shadowColor: shapesStore.rectangle.shadowColor,
                 draggable: true,
+                onDragMove: handleDragMove,
             }
             return <Rect {...newShape} />
         case 'circle':
             newShape = {
+                id: shape.id,
                 type: shape.type,
                 x: shape.x,
                 y: shape.y,
@@ -49,10 +61,12 @@ const ShapeFactory = ({ shape }: ShapeFactoryProps) => {
                 shadowBlur: shapesStore.circle.shadowBlur,
                 shadowColor: shapesStore.circle.shadowColor,
                 draggable: true,
+                onDragMove: handleDragMove,
             }
             return <Circle {...newShape} />
         case 'triangle':
             newShape = {
+                id: shape.id,
                 type: shape.type,
                 x: shape.x,
                 y: shape.y,
@@ -69,6 +83,7 @@ const ShapeFactory = ({ shape }: ShapeFactoryProps) => {
                 shadowColor: shapesStore.triangle.shadowColor,
                 draggable: true,
                 closed: true,
+                onDragMove: handleDragMove,
             }
             return <Line {...newShape} />
         default:

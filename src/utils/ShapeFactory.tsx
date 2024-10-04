@@ -1,79 +1,72 @@
-import { useShapeContext } from '../context/ShapeContext'
-import shapesStore from '../store/shapesStore'
+import shapesStore, { ShapeType } from '../store/shapesStore'
 import { Rect, Circle, Line } from 'react-konva'
 
 interface ShapeFactoryProps {
-    x: number
-    y: number
+    shape: {
+        x: number
+        y: number
+        type: ShapeType
+    }
 }
 
-const ShapeFactory = ({ x, y, shape }: ShapeFactoryProps) => {
-    // console.log('🚀 ~ ShapeFactory ~ y:', y)
-    // console.log('🚀 ~ ShapeFactory ~ x:', x)
-    // console.log('🚀 ~ ShapeFactory ~ shape:', shape)
-    const { selectedShape } = useShapeContext()
-    if (!selectedShape) return null
-
-    const shapeData = shapesStore[selectedShape]
-    console.log('🚀 ~ ShapeFactory ~ shapeData:', shapeData)
-
+const ShapeFactory = ({ shape }: ShapeFactoryProps) => {
     let newShape
     switch (shape.type) {
         case 'rectangle':
             newShape = {
                 type: shape.type,
-                x,
-                y,
-                width: shapeData.width,
-                height: shapeData.height,
-                fillLinearGradientStartPoint: shapeData.fillLinearGradientStartPoint,
-                fillLinearGradientEndPoint: shapeData.fillLinearGradientEndPoint,
+                x: shape.x,
+                y: shape.y,
+                width: shapesStore.rectangle.width,
+                height: shapesStore.rectangle.height,
+                fillLinearGradientStartPoint: shapesStore.rectangle.fillLinearGradientStartPoint,
+                fillLinearGradientEndPoint: shapesStore.rectangle.fillLinearGradientEndPoint,
                 fillLinearGradientColorStops: [
-                    shapeData.fillLinearGradientColorStops.startOffset,
-                    shapeData.fillLinearGradientColorStops.startColor,
-                    shapeData.fillLinearGradientColorStops.endOffset,
-                    shapeData.fillLinearGradientColorStops.endColor,
+                    shapesStore.rectangle.fillLinearGradientColorStops.startOffset,
+                    shapesStore.rectangle.fillLinearGradientColorStops.startColor,
+                    shapesStore.rectangle.fillLinearGradientColorStops.endOffset,
+                    shapesStore.rectangle.fillLinearGradientColorStops.endColor,
                 ],
-                shadowBlur: shapeData.shadowBlur,
-                shadowColor: shapeData.shadowColor,
+                shadowBlur: shapesStore.rectangle.shadowBlur,
+                shadowColor: shapesStore.rectangle.shadowColor,
                 draggable: true,
             }
             return <Rect {...newShape} />
         case 'circle':
             newShape = {
-                type: 'circle',
-                x,
-                y,
-                radius: shapeData.radius,
-                fillLinearGradientStartPoint: shapeData.fillLinearGradientStartPoint,
-                fillLinearGradientEndPoint: shapeData.fillLinearGradientEndPoint,
+                type: shape.type,
+                x: shape.x,
+                y: shape.y,
+                radius: shapesStore.circle.radius,
+                fillLinearGradientStartPoint: shapesStore.circle.fillLinearGradientStartPoint,
+                fillLinearGradientEndPoint: shapesStore.circle.fillLinearGradientEndPoint,
                 fillLinearGradientColorStops: [
-                    shapeData.fillLinearGradientColorStops.startOffset,
-                    shapeData.fillLinearGradientColorStops.startColor,
-                    shapeData.fillLinearGradientColorStops.endOffset,
-                    shapeData.fillLinearGradientColorStops.endColor,
+                    shapesStore.circle.fillLinearGradientColorStops.startOffset,
+                    shapesStore.circle.fillLinearGradientColorStops.startColor,
+                    shapesStore.circle.fillLinearGradientColorStops.endOffset,
+                    shapesStore.circle.fillLinearGradientColorStops.endColor,
                 ],
-                shadowBlur: shapeData.shadowBlur,
-                shadowColor: shapeData.shadowColor,
+                shadowBlur: shapesStore.circle.shadowBlur,
+                shadowColor: shapesStore.circle.shadowColor,
                 draggable: true,
             }
             return <Circle {...newShape} />
         case 'triangle':
             newShape = {
-                type: 'triangle',
-                x,
-                y,
-                points: shapeData.points,
-                fillLinearGradientStartPoint: shapeData.fillLinearGradientStartPoint,
-                fillLinearGradientEndPoint: shapeData.fillLinearGradientEndPoint,
+                type: shape.type,
+                x: shape.x,
+                y: shape.y,
+                points: shapesStore.triangle.points,
+                fillLinearGradientStartPoint: shapesStore.triangle.fillLinearGradientStartPoint,
+                fillLinearGradientEndPoint: shapesStore.triangle.fillLinearGradientEndPoint,
                 fillLinearGradientColorStops: [
-                    shapeData.fillLinearGradientColorStops.startOffset,
-                    shapeData.fillLinearGradientColorStops.startColor,
-                    shapeData.fillLinearGradientColorStops.endOffset,
-                    shapeData.fillLinearGradientColorStops.endColor,
+                    shapesStore.triangle.fillLinearGradientColorStops.startOffset,
+                    shapesStore.triangle.fillLinearGradientColorStops.startColor,
+                    shapesStore.triangle.fillLinearGradientColorStops.endOffset,
+                    shapesStore.triangle.fillLinearGradientColorStops.endColor,
                 ],
-                shadowBlur: shapeData.shadowBlur,
-                shadowColor: shapeData.shadowColor,
+                shadowBlur: shapesStore.triangle.shadowBlur,
+                shadowColor: shapesStore.triangle.shadowColor,
                 draggable: true,
                 closed: true,
             }

@@ -1,13 +1,11 @@
-import { useState } from 'react'
 import { Stage, Layer } from 'react-konva'
 import { KonvaEventObject } from 'konva/lib/Node'
 import ShapeFactory from '../utils/ShapeFactory'
 import { useShapeContext } from '../context/ShapeContext'
 
 const CanvasWindow = () => {
-    const [shapes, setShapes] = useState<any[]>([])
+    const { selectedShape, shapes, setShapes } = useShapeContext()
     console.log('🚀 ~ CanvasWindow ~ shapes:', shapes)
-    const { selectedShape } = useShapeContext()
 
     const handleMouseDown = (e: KonvaEventObject<MouseEvent>) => {
         const pos = e.target.getStage()?.getPointerPosition()
@@ -26,7 +24,7 @@ const CanvasWindow = () => {
         <Stage width={window.innerWidth} height={window.innerHeight} onMouseDown={handleMouseDown}>
             <Layer>
                 {shapes.map((shape, index) => (
-                    <ShapeFactory key={index} x={shape.x} y={shape.y} shape={shape} />
+                    <ShapeFactory key={index} shape={shape} />
                 ))}
             </Layer>
         </Stage>

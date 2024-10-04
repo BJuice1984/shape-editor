@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/canvaswindow.tsx","./src/components/toolbar.tsx","./src/context/shapecontext.tsx","./src/mock/shapesmock.ts","./src/store/shapesstore.ts","./src/utils/shapefactory.tsx"],"version":"5.6.2"}

@@ -4,7 +4,7 @@ import shapesStore, { ShapeType } from '../store/shapesStore'
 import { FaMousePointer } from 'react-icons/fa'
 
 const Toolbar = () => {
-    const { tool, setTool, setSelectedShape } = useShapeContext()
+    const { tool, setTool, selectedShape, setSelectedShape } = useShapeContext()
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     const handleAddButtonClick = () => {
@@ -27,7 +27,14 @@ const Toolbar = () => {
             <h3 className='text-2xl font-medium text-text-main leading-8 cursor-default'>
                 Инструменты
             </h3>
-            <button className='m-4' onClick={handleSelectToolClick}>
+            <button
+                className={`m-4 p-2 rounded-md ${
+                    tool === 'select'
+                        ? 'bg-blue-100 text-blue-700'
+                        : 'text-gray-700 hover:bg-gray-100'
+                }`}
+                onClick={handleSelectToolClick}
+            >
                 <FaMousePointer size={24} />
             </button>
             <div className='relative inline-block text-left'>
@@ -62,7 +69,11 @@ const Toolbar = () => {
                                 <button
                                     key={shapeKey}
                                     onClick={() => setSelectedShape(shapeKey as ShapeType)}
-                                    className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left'
+                                    className={`block px-4 py-2 text-sm w-full text-left ${
+                                        selectedShape === shapeKey
+                                            ? 'bg-blue-100 text-blue-700'
+                                            : 'text-gray-700 hover:bg-gray-100'
+                                    }`}
                                     role='menuitem'
                                 >
                                     {shapeKey}

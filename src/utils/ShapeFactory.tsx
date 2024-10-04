@@ -7,17 +7,21 @@ interface ShapeFactoryProps {
     y: number
 }
 
-const ShapeFactory = ({ x, y }: ShapeFactoryProps) => {
+const ShapeFactory = ({ x, y, shape }: ShapeFactoryProps) => {
+    // console.log('🚀 ~ ShapeFactory ~ y:', y)
+    // console.log('🚀 ~ ShapeFactory ~ x:', x)
+    // console.log('🚀 ~ ShapeFactory ~ shape:', shape)
     const { selectedShape } = useShapeContext()
     if (!selectedShape) return null
 
     const shapeData = shapesStore[selectedShape]
+    console.log('🚀 ~ ShapeFactory ~ shapeData:', shapeData)
 
     let newShape
-    switch (shapeData.type) {
+    switch (shape.type) {
         case 'rectangle':
             newShape = {
-                type: 'rectangle',
+                type: shape.type,
                 x,
                 y,
                 width: shapeData.width,

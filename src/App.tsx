@@ -1,18 +1,15 @@
-import { useState } from 'react'
+import { ShapeProvider } from './context/ShapeContext'
 import Toolbar from './components/Toolbar'
 import CanvasWindow from './components/CanvasWindow'
 
 const App = () => {
-    const [tool, setTool] = useState<'select' | 'shape'>('select')
-    const [selectedShape, setSelectedShape] = useState<'rectangle' | 'circle' | 'triangle' | null>(
-        'rectangle'
-    )
-
     return (
-        <main className='h-full bg-background-main flex flex-col'>
-            <Toolbar setTool={setTool} setSelectedShape={setSelectedShape} />
-            <CanvasWindow tool={tool} selectedShape={selectedShape} />
-        </main>
+        <ShapeProvider>
+            <main className='h-full bg-background-main flex flex-col'>
+                <Toolbar />
+                <CanvasWindow />
+            </main>
+        </ShapeProvider>
     )
 }
 

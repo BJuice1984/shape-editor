@@ -1,4 +1,4 @@
-import { shapesMock } from './shapesMock'
+import { shapesMock } from '../mock/shapesMock'
 
 interface Shape {
     type: string
@@ -16,7 +16,7 @@ interface Shape {
     width?: number
     height?: number
     radius?: number
-    points?: [number, number, number, number, number, number]
+    points?: number[]
 }
 
 export type ShapeType = keyof typeof shapesMock

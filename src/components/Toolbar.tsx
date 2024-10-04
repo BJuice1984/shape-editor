@@ -1,11 +1,9 @@
-import shapesStore, { ShapeType } from '../mock/shapesStore'
+import { useShapeContext } from '../context/ShapeContext'
+import shapesStore, { ShapeType } from '../store/shapesStore'
 
-interface ToolbarProps {
-    setTool: (tool: 'select' | 'shape') => void
-    setSelectedShape: (shape: ShapeType | null) => void
-}
+const Toolbar = () => {
+    const { setTool, setSelectedShape } = useShapeContext()
 
-const Toolbar = ({ setTool, setSelectedShape }: ToolbarProps) => {
     return (
         <div className='bg-background-secondary'>
             <h3 className='text-2xl font-medium text-text-main leading-8 cursor-default'>
